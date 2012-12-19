@@ -3,7 +3,7 @@ import java.util.*;
 public class CrypticaSolver {
     private static enum Direction { LEFT, UP, RIGHT, DOWN };
 
-    private static class Node implements Comparable<Node> {        
+    private static class Node {        
         public int depth;
         public Node parent;
         public Direction dir;
@@ -27,11 +27,6 @@ public class CrypticaSolver {
                 new Node(new Cryptica(state).moveUp(), this, Direction.UP),
                 new Node(new Cryptica(state).moveDown(), this, Direction.DOWN)
             };
-        }
-        
-        @Override
-        public int compareTo(Node n) {
-            return 0;
         }
     }  
   
