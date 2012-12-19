@@ -22,10 +22,10 @@ public class CrypticaSolver {
         
         public Node[] children() {
             return new Node[] {
-                new Node(state.moveRight(), this, Direction.RIGHT),
-                new Node(state.moveLeft(), this, Direction.LEFT),
-                new Node(state.moveUp(), this, Direction.UP),
-                new Node(state.moveDown(), this, Direction.DOWN)
+                new Node(new Cryptica(state).moveRight(), this, Direction.RIGHT),
+                new Node(new Cryptica(state).moveLeft(), this, Direction.LEFT),
+                new Node(new Cryptica(state).moveUp(), this, Direction.UP),
+                new Node(new Cryptica(state).moveDown(), this, Direction.DOWN)
             };
         }
         

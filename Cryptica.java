@@ -36,59 +36,55 @@ public class Cryptica {
     }
 
     public Cryptica moveRight() {
-        Cryptica crypt = new Cryptica(this);
-        for (int r = 0; r < crypt.board.length; r++) {
-            for (int c = crypt.board[r].length - 1; c > 0; c--) {
-                if (crypt.board[r][c] == null && crypt.board[r][c-1] != null &&
-                        !crypt.board[r][c-1].isBlockingStone()) {
-                    crypt.board[r][c] = crypt.board[r][c-1];
-                    crypt.board[r][c-1] = null;
+        for (int r = 0; r < board.length; r++) {
+            for (int c = board[r].length - 1; c > 0; c--) {
+                if (board[r][c] == null && board[r][c-1] != null &&
+                        !board[r][c-1].isBlockingStone()) {
+                    board[r][c] = board[r][c-1];
+                    board[r][c-1] = null;
                 }
             }
         }
-        return crypt;
+        return this;
     }
 
     public Cryptica moveLeft() {
-        Cryptica crypt = new Cryptica(this);
-        for (int r = 0; r < crypt.board.length; r++) {
-            for (int c = 0; c < crypt.board[r].length - 1; c++) {
-                if (crypt.board[r][c] == null && crypt.board[r][c+1] != null &&
-                        !crypt.board[r][c+1].isBlockingStone()) {
-                    crypt.board[r][c] = crypt.board[r][c+1];
-                    crypt.board[r][c+1] = null;
+        for (int r = 0; r < board.length; r++) {
+            for (int c = 0; c < board[r].length - 1; c++) {
+                if (board[r][c] == null && board[r][c+1] != null &&
+                        !board[r][c+1].isBlockingStone()) {
+                    board[r][c] = board[r][c+1];
+                    board[r][c+1] = null;
                 }
             }
         }
-        return crypt;
+        return this;
     }
 
     public Cryptica moveDown() {
-        Cryptica crypt = new Cryptica(this);
-        for (int r = crypt.board.length - 1; r > 0; r--) {
-            for (int c = 0; c < crypt.board[r].length; c++) {
-                if (crypt.board[r][c] == null && crypt.board[r-1][c] != null &&
-                        !crypt.board[r-1][c].isBlockingStone()) {
-                    crypt.board[r][c] = crypt.board[r-1][c];
-                    crypt.board[r-1][c] = null;
+        for (int r = board.length - 1; r > 0; r--) {
+            for (int c = 0; c < board[r].length; c++) {
+                if (board[r][c] == null && board[r-1][c] != null &&
+                        !board[r-1][c].isBlockingStone()) {
+                    board[r][c] = board[r-1][c];
+                    board[r-1][c] = null;
                 }
             }
         }
-        return crypt;
+        return this;
     }
 
     public Cryptica moveUp() {
-        Cryptica crypt = new Cryptica(this);
-        for (int r = 0; r < crypt.board.length - 1; r++) {
-            for (int c = 0; c < crypt.board[r].length; c++) {
-                if (crypt.board[r][c] == null && crypt.board[r+1][c] != null &&
-                        !crypt.board[r+1][c].isBlockingStone()) {
-                    crypt.board[r][c] = crypt.board[r+1][c];
-                    crypt.board[r+1][c] = null;
+        for (int r = 0; r < board.length - 1; r++) {
+            for (int c = 0; c < board[r].length; c++) {
+                if (board[r][c] == null && board[r+1][c] != null &&
+                        !board[r+1][c].isBlockingStone()) {
+                    board[r][c] = board[r+1][c];
+                    board[r+1][c] = null;
                 }
             }
         }
-        return crypt;
+        return this;
     }
 
     @Override
