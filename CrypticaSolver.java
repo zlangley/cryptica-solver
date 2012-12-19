@@ -67,13 +67,9 @@ public class CrypticaSolver {
         return crypt;
     }
 
-    public static Node solve(Cryptica crypt, boolean aStar) {
+    public static Node solve(Cryptica crypt) {
         HashSet<Cryptica> seen = new HashSet<Cryptica>();
-        Queue<Node> q;
-        if (aStar)
-            q = new PriorityQueue<Node>();
-        else
-            q = new LinkedList<Node>();
+        Queue<Node> q = new LinkedList<Node>();
 
         seen.add(crypt);
         q.add(new Node(crypt));
@@ -112,6 +108,6 @@ public class CrypticaSolver {
             board.append('\n');
         }
         Cryptica crypt = parseBoard(board.toString());
-        printSolution(solve(crypt, false));
+        printSolution(solve(crypt));
     }
 }
