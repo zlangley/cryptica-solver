@@ -40,11 +40,12 @@ public class Cryptica implements Comparable<Cryptica> {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String board = "";
+        StringBuilder board = new StringBuilder();
         while (scan.hasNextLine()) {
-            board += scan.nextLine() + "\n";
+            board.append(scan.nextLine());
+            board.append('\n');
         }
-        Cryptica crypt = parseBoard(board);
+        Cryptica crypt = parseBoard(board.toString());
         printSolution(solve(crypt, args.length > 0));
     }
 
