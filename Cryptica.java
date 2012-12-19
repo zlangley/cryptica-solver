@@ -17,28 +17,24 @@ public class Cryptica {
     }
 
     public boolean solved() {
-        for (int r = 0; r < board.length; r++) {
-            for (int c = 0; c < board[r].length; c++) {
-                if (board[r][c] instanceof TempleStone) {
-                    TempleStone t = (TempleStone)board[r][c];
-                    if (!t.hasDestination(r, c))
+        for (int r = 0; r < board.length; r++)
+            for (int c = 0; c < board[r].length; c++)
+                if (board[r][c] != null && board[r][c].isTempleStone())
+                    if (!board[r][c].hasDestination(r, c))
                         return false;
-                }
-            }
-        }
         return true;
     }
 
     public void addTempleStone(int row, int col, int destRow, int destCol) { 
-        board[row][col] = new TempleStone(destRow, destCol);
+        board[row][col] = new Stone(destRow, destCol);
     }
 
     public void addMovingStone(int row, int col) {
-        board[row][col] = new MovingStone();
+        board[row][col] = Stone.MOVING_STONE;
     }
 
     public void addBlockingStone(int row, int col) {
-        board[row][col] = new BlockingStone();
+        board[row][col] = Stone.BLOCKING_STONE;
     }
 
     public Cryptica moveRight() {
@@ -46,7 +42,7 @@ public class Cryptica {
         for (int r = 0; r < crypt.board.length; r++) {
             for (int c = crypt.board[r].length - 1; c > 0; c--) {
                 if (crypt.board[r][c] == null && crypt.board[r][c-1] != null &&
-                        !(crypt.board[r][c-1] instanceof BlockingStone)) {
+                        !crypt.board[r][c-1].isBlockingStone()) {
                     crypt.board[r][c] = crypt.board[r][c-1];
                     crypt.board[r][c-1] = null;
                 }
@@ -60,7 +56,7 @@ public class Cryptica {
         for (int r = 0; r < crypt.board.length; r++) {
             for (int c = 0; c < crypt.board[r].length - 1; c++) {
                 if (crypt.board[r][c] == null && crypt.board[r][c+1] != null &&
-                        !(crypt.board[r][c+1] instanceof BlockingStone)) {
+                        !crypt.board[r][c+1].isBlockingStone()) {
                     crypt.board[r][c] = crypt.board[r][c+1];
                     crypt.board[r][c+1] = null;
                 }
@@ -74,7 +70,7 @@ public class Cryptica {
         for (int r = crypt.board.length - 1; r > 0; r--) {
             for (int c = 0; c < crypt.board[r].length; c++) {
                 if (crypt.board[r][c] == null && crypt.board[r-1][c] != null &&
-                        !(crypt.board[r-1][c] instanceof BlockingStone)) {
+                        !crypt.board[r-1][c].isBlockingStone()) {
                     crypt.board[r][c] = crypt.board[r-1][c];
                     crypt.board[r-1][c] = null;
                 }
@@ -88,7 +84,7 @@ public class Cryptica {
         for (int r = 0; r < crypt.board.length - 1; r++) {
             for (int c = 0; c < crypt.board[r].length; c++) {
                 if (crypt.board[r][c] == null && crypt.board[r+1][c] != null &&
-                        !(crypt.board[r+1][c] instanceof BlockingStone)) {
+                        !crypt.board[r+1][c].isBlockingStone()) {
                     crypt.board[r][c] = crypt.board[r+1][c];
                     crypt.board[r+1][c] = null;
                 }
@@ -102,12 +98,15 @@ public class Cryptica {
         int ret = 0;
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
+                if (board[r][c] == null)
+                    continue;
+
                 int val = 3*r + 17*c;
-                if (board[r][c] instanceof BlockingStone)
+                if (board[r][c].isBlockingStone())
                     val *= 2;
-                else if (board[r][c] instanceof TempleStone)
+                else if (board[r][c].isTempleStone())
                     val *= 3;
-                else if (board[r][c] instanceof MovingStone)
+                else if (board[r][c].isMovingStone())
                     val *= 5;
                 ret += val;
             }
@@ -138,9 +137,9 @@ public class Cryptica {
             for (int c = 0; c < board[r].length; c++) {
                 if (board[r][c] == null)
                     str.append('.');
-                else if (board[r][c] instanceof BlockingStone)
+                else if (board[r][c].isBlockingStone())
                     str.append('#');
-                else if (board[r][c] instanceof MovingStone)
+                else if (board[r][c].isMovingStone())
                     str.append('@');
                 else
                     str.append('*');
