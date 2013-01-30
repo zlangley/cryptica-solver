@@ -92,16 +92,19 @@ public class Cryptica {
         int ret = 0;
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                if (board[r][c] == null)
+                if (board[r][c] == null || board[r][c].isBlockingStone())
                     continue;
 
-                int val = 3*r + 17*c;
-                if (board[r][c].isBlockingStone())
-                    val *= 2;
-                else if (board[r][c].isTempleStone())
-                    val *= 3;
-                else if (board[r][c].isMovingStone())
-                    val *= 5;
+                int val;
+                if (board[r][c].isMovingStone()) {
+                    val = c * board.length + r;
+                    val *= 36;
+                } else {
+                    val = c * board.length + r;
+                    val *= 36;
+                    val += ((board[r][c].getDestCol()) * board.length + board[r][c].getDestRow() + 1);
+                }
+                ret *= 36 * 36;
                 ret += val;
             }
         }

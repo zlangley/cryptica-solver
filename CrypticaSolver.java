@@ -68,21 +68,22 @@ public class CrypticaSolver {
     }
 
     public static Node solve(Cryptica crypt) {
-        HashSet<Cryptica> seen = new HashSet<Cryptica>();
+        HashSet<Integer> seen = new HashSet<Integer>();
         Queue<Node> q = new LinkedList<Node>();
 
-        seen.add(crypt);
+        seen.add(crypt.hashCode());
         q.add(new Node(crypt));
 
         while (q.size() > 0) {
             Node node = q.poll();
-            
             for (Node child : node.children()) {
-                if (!seen.contains(child.state)) {
+                int hash = child.state.hashCode();
+                if (!seen.contains(hash)) {
                     if (child.state.solved())
                         return child;
+
                     q.add(child);
-                    seen.add(child.state);
+                    seen.add(hash);
                 }
             }
         }
